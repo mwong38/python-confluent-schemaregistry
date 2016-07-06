@@ -1,5 +1,5 @@
 from avro import io
-import StringIO
+from io import BytesIO
 import json
 import struct
 import sys
@@ -16,7 +16,7 @@ except:
     pass
 
 
-class ContextStringIO(StringIO.StringIO):
+class ContextStringIO(BytesIO):
     """
     Wrapper to allow use of StringIO via 'with' constructs.
     """
@@ -92,8 +92,8 @@ class MessageSerializer(object):
         Encode a record with a given schema id.  The record must
         be a python dictionary.
         """
-        if not isinstance(record, dict):
-            raise SerializerError("record must be a dictionary")
+        # if not isinstance(record, dict):
+        #     raise SerializerError("record must be a dictionary")
         # use slow avro
         if schema_id not in self.id_to_writers:
             # get the writer + schema

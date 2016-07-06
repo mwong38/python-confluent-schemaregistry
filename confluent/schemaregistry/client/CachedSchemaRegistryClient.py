@@ -1,6 +1,10 @@
-import urllib2
 import json
 import sys
+
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
 from . import ClientError, VALID_LEVELS
 from ..serializers import Util
@@ -48,16 +52,16 @@ class CachedSchemaRegistryClient(object):
         try:
             response = urllib2.urlopen(new_req)
             # read response
-            result = json.loads(response.read())
+            result = json.loads(response.read().decode('utf-8'))
             # build meta with headers as a dict
-            meta = response.info().dict
+            meta = response.info()
             # http code
             code = response.getcode()
             # return result + meta tuple
             return (result, meta, code)
         except urllib2.HTTPError as e:
             code = e.code
-            result = json.loads(e.read())
+            result = json.loads(e.read().decode('utf-8'))
             message = "HTTP Error (%d) from schema registry: %s %d" % (code,
                                                                        result.get('message'),
                                                                        result.get('error_code'))
@@ -72,7 +76,7 @@ class CachedSchemaRegistryClient(object):
         if subject not in cache:
             cache[subject] = { }
         sub_cache = cache[subject]
-        sub_cache[schema] = value
+        sub_cache[str(schema)] = value
 
     def _cache_schema(self, schema, schema_id, subject=None, version=None):
         # don't overwrite anything

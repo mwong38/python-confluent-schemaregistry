@@ -1,7 +1,7 @@
 # Python Schema Registry Client
 
 A Python client used to interact with [Confluent](http://confluent.io/)'s
-[schema registry](https://github.com/confluentinc/schema-registry).  Supports Python 2.6 and 2.7.  This also works within a virtual env.
+[schema registry](https://github.com/confluentinc/schema-registry).  Supports Python 2.6 and 2.7 and 3.5.  This also works within a virtual env.
 
 The API is heavily based off of the existing Java API of [Confluent schema registry](https://github.com/confluentinc/schema-registry).
 

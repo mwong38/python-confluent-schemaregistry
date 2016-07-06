@@ -7,7 +7,10 @@ from sys import version_info
 
 import confluent.schemaregistry
 
-install_requires = []
+if version_info >= (3,2):
+    install_requires = ['avro-python3']
+else:
+    install_requires = ['avro']
 
 version = '.'.join([ str(confluent.schemaregistry.__version__[i]) for i in range(3) ])
 
@@ -22,7 +25,7 @@ setup(
 
     # Project uses simplejson, so ensure that it gets installed or upgraded
     # on the target machine
-    install_requires = ['avro'],
+    install_requires = install_requires,
 
     # metadata for upload to PyPI
     author = 'Verisign',
