@@ -92,6 +92,7 @@ class MessageSerializer(object):
         Encode a record with a given schema id.  The record must
         be a python dictionary.
         """
+        # comment-out below -- why does record have to be a dict?
         # if not isinstance(record, dict):
         #     raise SerializerError("record must be a dictionary")
         # use slow avro
